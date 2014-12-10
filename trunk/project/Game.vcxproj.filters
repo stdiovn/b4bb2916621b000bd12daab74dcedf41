@@ -3,10 +3,36 @@
   <ItemGroup>
     <ClInclude Include="..\source\Game.h" />
     <ClInclude Include="..\source\stdafx.h" />
+    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\Manager\StateManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\GameState.h">
+      <Filter>GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\StateGameplay.h">
+      <Filter>GameState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Game.cpp" />
     <ClCompile Include="..\source\stdafx.cpp" />
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\Manager\StateManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\GameState.cpp">
+      <Filter>GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\StateGameplay.cpp">
+      <Filter>GameState</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="GameState">
+      <UniqueIdentifier>{18ea866c-56b6-46bf-861e-fd01fecbf923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{c03f9602-15ba-484c-8aa5-d78c4b41cd4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
