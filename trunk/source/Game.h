@@ -1,6 +1,10 @@
 #pragma once
 
 using namespace stdio_fw;
+
+class StdioWorld;
+class StdioRobot;
+
 class Game : public Application
 {
 public:
@@ -12,4 +16,7 @@ public:
 
 	virtual void		Render(Graphics* g);
 	virtual void		Exit();
+private:
+	StdioWorld*			_world;
+	StdioRobot*			_robot;
 };

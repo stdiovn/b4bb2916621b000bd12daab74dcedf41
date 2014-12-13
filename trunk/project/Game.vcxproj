@@ -72,21 +72,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\source\Constants.h" />
+    <ClInclude Include="..\source\DemoRobot.h" />
     <ClInclude Include="..\source\Game.h" />
+    <ClInclude Include="..\source\Robot\StdioRobot.h" />
+    <ClInclude Include="..\source\Robot\StdioWorld.h" />
     <ClInclude Include="..\source\stdafx.h" />
-    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\GameState.h" />
-    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\StateGameplay.h" />
-    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\Manager\StateManager.h" />
+    <ClInclude Include="..\source\tinythread\fast_mutex.h" />
+    <ClInclude Include="..\source\tinythread\tinythread.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\DemoRobot.cpp" />
     <ClCompile Include="..\source\Game.cpp" />
     <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\Robot\StdioRobot.cpp" />
+    <ClCompile Include="..\source\Robot\StdioWorld.cpp" />
     <ClCompile Include="..\source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\GameState.cpp" />
-    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\StateGameplay.cpp" />
-    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\Manager\StateManager.cpp" />
+    <ClCompile Include="..\source\tinythread\tinythread.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

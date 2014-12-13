@@ -3,36 +3,42 @@
   <ItemGroup>
     <ClInclude Include="..\source\Game.h" />
     <ClInclude Include="..\source\stdafx.h" />
-    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\Manager\StateManager.h">
-      <Filter>Manager</Filter>
+    <ClInclude Include="..\source\Robot\StdioWorld.h">
+      <Filter>Robot</Filter>
     </ClInclude>
-    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\GameState.h">
-      <Filter>GameState</Filter>
+    <ClInclude Include="..\source\Robot\StdioRobot.h">
+      <Filter>Robot</Filter>
     </ClInclude>
-    <ClInclude Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\StateGameplay.h">
-      <Filter>GameState</Filter>
+    <ClInclude Include="..\source\DemoRobot.h" />
+    <ClInclude Include="..\source\Constants.h" />
+    <ClInclude Include="..\source\tinythread\fast_mutex.h">
+      <Filter>tinythread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tinythread\tinythread.h">
+      <Filter>tinythread</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Game.cpp" />
     <ClCompile Include="..\source\stdafx.cpp" />
     <ClCompile Include="..\source\main.cpp" />
-    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\Manager\StateManager.cpp">
-      <Filter>Manager</Filter>
+    <ClCompile Include="..\source\Robot\StdioWorld.cpp">
+      <Filter>Robot</Filter>
     </ClCompile>
-    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\GameState.cpp">
-      <Filter>GameState</Filter>
+    <ClCompile Include="..\source\Robot\StdioRobot.cpp">
+      <Filter>Robot</Filter>
     </ClCompile>
-    <ClCompile Include="Z:\tacoxnguyen On My Mac\DATA\IMPT\Coding\STDIO\Training\TrainerProject\source\GameState\StateGameplay.cpp">
-      <Filter>GameState</Filter>
+    <ClCompile Include="..\source\DemoRobot.cpp" />
+    <ClCompile Include="..\source\tinythread\tinythread.cpp">
+      <Filter>tinythread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="GameState">
-      <UniqueIdentifier>{18ea866c-56b6-46bf-861e-fd01fecbf923}</UniqueIdentifier>
+    <Filter Include="Robot">
+      <UniqueIdentifier>{641520c9-985d-4f09-946a-8fd5f1e5e414}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager">
-      <UniqueIdentifier>{c03f9602-15ba-484c-8aa5-d78c4b41cd4c}</UniqueIdentifier>
+    <Filter Include="tinythread">
+      <UniqueIdentifier>{905c9326-1c3f-4d7a-bd91-2716f625e865}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
