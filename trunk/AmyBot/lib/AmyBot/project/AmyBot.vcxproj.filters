@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="AmyBot">
+      <UniqueIdentifier>{e3da7cfc-da0e-49e1-858c-8edd847da767}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AmyBot\Robot">
+      <UniqueIdentifier>{4523b21c-affc-4990-bc48-b3420aeff7a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{650e2ccd-1ee7-499b-a8b4-3032546ba1e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\tinythread">
+      <UniqueIdentifier>{05ed45b8-db53-44b4-8042-3737fd8be49b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\Robot\StdioRobot.h">
+      <Filter>AmyBot\Robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Robot\StdioWorld.h">
+      <Filter>AmyBot\Robot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\Constants.h">
+      <Filter>AmyBot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tinythread\fast_mutex.h">
+      <Filter>libs\tinythread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tinythread\tinythread.h">
+      <Filter>libs\tinythread</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\Robot\StdioRobot.cpp">
+      <Filter>AmyBot\Robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\Robot\StdioWorld.cpp">
+      <Filter>AmyBot\Robot</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\tinythread\tinythread.cpp">
+      <Filter>libs\tinythread</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
