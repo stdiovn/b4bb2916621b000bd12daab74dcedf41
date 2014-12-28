@@ -14,6 +14,8 @@ public:
 	virtual ErrorCode	Init(int screenW, int screenH, const char* title);
 	virtual void		Update(float deltaTime);
 
+	void				onKeyProc(KeyCode key, KeyState state) {}
+
 	virtual void		Render(Graphics* g);
 	virtual void		Exit();
 private:

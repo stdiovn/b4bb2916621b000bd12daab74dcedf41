@@ -131,31 +131,29 @@ namespace stdio_fw
 		drawRect(rect.x, rect.y, rect.width, rect.height, weight);
 	}
 
-	void Graphics::drawImage(Image* img, int x, int y, unsigned int flipping)
+	void Graphics::drawImage(Image* img, int x, int y, uint flipping)
 	{
 		draw(x, y, img->getWidth(), img->getHeight(), nullptr, img->m_texID, flipping);
 	}
 
-	void Graphics::drawImage(Image* img, Rect rect, unsigned int flipping)
+	void Graphics::drawImage(Image* img, Rect rect, uint flipping)
 	{
 		draw(rect.x, rect.y, rect.width, rect.height, nullptr, img->m_texID, flipping);
 	}
 
-	void Graphics::drawRegion(Image* img, int x, int y, int width, int height, int src_x, int src_y, int src_w, int src_h, unsigned int flipping)
+	void Graphics::drawRegion(Image* img, int x, int y, int width, int height, int src_x, int src_y, int src_w, int src_h, uint flipping)
 	{
 		float uv[]
 		{
 			X2UVGL(src_x, img->getWidth()), Y2UVGL(src_y, img->getHeight()),
+			X2UVGL(src_x + src_w, img->getWidth()), Y2UVGL(src_y, img->getHeight()),
 			X2UVGL(src_x, img->getWidth()), Y2UVGL(src_y + src_h, img->getHeight()),
-			X2UVGL(src_x + src_w, img->getWidth()), Y2UVGL(src_y + src_h, img->getHeight()),
-			X2UVGL(src_x, img->getWidth()), Y2UVGL(src_y, img->getHeight()),
-			X2UVGL(src_x + src_w, img->getWidth()), Y2UVGL(src_y + src_h, img->getHeight()),
-			X2UVGL(src_x + src_w, img->getWidth()), Y2UVGL(src_y, img->getHeight())
+			X2UVGL(src_x + src_w, img->getWidth()), Y2UVGL(src_y + src_h, img->getHeight())
 		};
 		draw(x, y, width, height, uv, img->m_texID, flipping);
 	}
 
-	void Graphics::drawRegion(Image* img, Rect src, Rect dest, unsigned int flipping)
+	void Graphics::drawRegion(Image* img, Rect src, Rect dest, uint flipping)
 	{
 		drawRegion(img, src.x, src.y, src.width, src.height, dest.x, dest.y, dest.width, dest.height, flipping);
 	}
@@ -213,7 +211,7 @@ namespace stdio_fw
 		glUniform4fv(m_cachedLocs[CACHED_LOC::UNI_COLOR2], 1, &m_drawColor[0]);
 
 		// Transfer uv
-		GLint uvLoc = m_cachedLocs[CACHED_LOC::ATT_TEXCOORD1];
+		GLint uvLoc = m_cachedLocs[CACHED_LOC::ATT_TEXCOORD2];
 		float default_uv[] = {
 			0.0f, 0.0f,
 			1.0f, 0.0f,
@@ -227,7 +225,7 @@ namespace stdio_fw
 		// Draw individual character
 		for (const char* p = text; *p; p++)
 		{
-			if (FT_Load_Char(m_curFont->m_face, *p, FT_LOAD_RENDER) != 0)
+			if (FT_Load_Char(m_curFont->m_face, *p, FT_LOAD_RENDER))
 				continue;
 
 			FT_GlyphSlot gs = m_curFont->m_face->glyph;
@@ -252,29 +250,28 @@ namespace stdio_fw
 
 			// Compute vertices array
 			float vertices[] = {
-				XSCREEN2GL(px, m_iScreenW),		YSCREEN2GL(py, m_iScreenH),
+				XSCREEN2GL(px, m_iScreenW), YSCREEN2GL(py, m_iScreenH),
 				XSCREEN2GL(px + w, m_iScreenW), YSCREEN2GL(py, m_iScreenH),
-				XSCREEN2GL(px, m_iScreenW),		YSCREEN2GL(py + h, m_iScreenH),
+				XSCREEN2GL(px, m_iScreenW), YSCREEN2GL(py + h, m_iScreenH),
 				XSCREEN2GL(px + w, m_iScreenW), YSCREEN2GL(py + h, m_iScreenH)
 			};
 
 			// Transfer data to verties
-			GLint posLoc = m_cachedLocs[CACHED_LOC::ATT_POSITION2];			
+			GLint posLoc = m_cachedLocs[CACHED_LOC::ATT_POSITION2];
 			glVertexAttribPointer(posLoc, 2, GL_FLOAT, GL_FALSE, 0, vertices);
-			glEnableVertexAttribArray(posLoc);			
+			glEnableVertexAttribArray(posLoc);
 
 			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 			x += (gs->advance.x >> 6) * scale_x;
 			y += (gs->advance.y >> 6) * scale_y;
 		}
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+		
 		glUseProgram(0);
 		glDisable(GL_BLEND);
 	}
 
-	void Graphics::draw(int x, int y, int width, int height, float *uv, unsigned int texture_id, unsigned int flipping)
+	void Graphics::draw(int x, int y, int width, int height, float *uv, uint texture_id, uint flipping)
 	{
 		//enable blend
 		glEnable(GL_BLEND);
@@ -309,11 +306,9 @@ namespace stdio_fw
 		// Compute vertices array
 		float vertices[] = {
 			XSCREEN2GL(v1.x, m_iScreenW), YSCREEN2GL(v1.y, m_iScreenH),
+			XSCREEN2GL(v2.x, m_iScreenW), YSCREEN2GL(v2.y, m_iScreenH),
 			XSCREEN2GL(v3.x, m_iScreenW), YSCREEN2GL(v3.y, m_iScreenH),
-			XSCREEN2GL(v4.x, m_iScreenW), YSCREEN2GL(v4.y, m_iScreenH),
-			XSCREEN2GL(v1.x, m_iScreenW), YSCREEN2GL(v1.y, m_iScreenH),
-			XSCREEN2GL(v4.x, m_iScreenW), YSCREEN2GL(v4.y, m_iScreenH),
-			XSCREEN2GL(v2.x, m_iScreenW), YSCREEN2GL(v2.y, m_iScreenH)
+			XSCREEN2GL(v4.x, m_iScreenW), YSCREEN2GL(v4.y, m_iScreenH),			
 		};
 
 		// Transfer data to verties
@@ -341,11 +336,9 @@ namespace stdio_fw
 			GLint uvLoc = m_cachedLocs[CACHED_LOC::ATT_TEXCOORD1];			
 			float default_uv[] = {
 				0.0f, 1.0f,
+				1.0f, 1.0f,
 				0.0f, 0.0f,
-				1.0f, 0.0f,
-				0.0f, 1.0f,
-				1.0f, 0.0f,
-				1.0f, 1.0f
+				1.0f, 0.0f
 			};
 
 			if (uv == nullptr)
@@ -364,7 +357,7 @@ namespace stdio_fw
 			glEnableVertexAttribArray(uvLoc);			
 		}	
 		
-		glDrawArrays(GL_TRIANGLES, 0, 6);
+		glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 		// Disable blend
 		glDisable(GL_BLEND);
@@ -372,7 +365,7 @@ namespace stdio_fw
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void Graphics::setColor(unsigned int color)
+	void Graphics::setColor(uint color)
 	{
 		// [0000 0000] [0000 0000] [0000 0000] [0000 0000]
 		m_drawColor[0] = ((color >> 24) & 0xFF) / 255.0f;
@@ -389,7 +382,7 @@ namespace stdio_fw
 		m_drawColor[3] = alpha / 255.0f;
 	}
 
-	void Graphics::setClearColor(unsigned int color)
+	void Graphics::setClearColor(uint color)
 	{
 		// [0000 0000] [0000 0000] [0000 0000] [0000 0000]
 		m_clearColor[0] = ((color >> 24) & 0xFF) / 255.0f;
@@ -426,6 +419,16 @@ namespace stdio_fw
 	{
 		if (font)
 			m_curFont = font;
+	}
+
+	int Graphics::getClientWidth()
+	{
+		return m_iScreenW;
+	}
+
+	int Graphics::getClientHeight()
+	{
+		return m_iScreenH;
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////

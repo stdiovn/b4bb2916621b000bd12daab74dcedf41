@@ -16,6 +16,7 @@ void DemoRobot::run()
 	}
 
 	pickGem();
+	pickGem();
 	move();
 	move();
 	putGem();
