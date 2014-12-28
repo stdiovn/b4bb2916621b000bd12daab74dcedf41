@@ -30,6 +30,9 @@
     <ClInclude Include="..\source\tinythread\tinythread.h">
       <Filter>libs\tinythread</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\RobotException.h">
+      <Filter>AmyBot</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\Robot\StdioRobot.cpp">

@@ -69,6 +69,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\source\Constants.h" />
+    <ClInclude Include="..\source\RobotException.h" />
     <ClInclude Include="..\source\Robot\StdioRobot.h" />
     <ClInclude Include="..\source\Robot\StdioWorld.h" />
     <ClInclude Include="..\source\tinythread\fast_mutex.h" />

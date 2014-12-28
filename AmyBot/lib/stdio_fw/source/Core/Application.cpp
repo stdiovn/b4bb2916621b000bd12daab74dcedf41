@@ -7,9 +7,10 @@
 
 namespace stdio_fw
 {
-	Application::Application() :m_pWindow(NULL), m_isRunning(false)
+	Application* Application::m_pApp = nullptr;
+	Application::Application() :m_pWindow(nullptr), m_isRunning(false)
 	{
-
+		m_pApp = this;
 	}
 
 	Application::~Application()
@@ -29,15 +30,23 @@ namespace stdio_fw
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 
+		
+		/* Compute window rectangle dimensions based on requested client area dimensions. */
+		RECT R = { 0, 0, screenW, screenH };
+		AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
+		int width = R.right - R.left;
+		int height = R.bottom - R.top;
+
 		/* Create a windowed mode window and its OpenGL context */
-		m_pWindow = glfwCreateWindow(screenW, screenH, title, NULL, NULL);
+		m_pWindow = glfwCreateWindow(width, height, title, NULL, NULL);
 		if (!m_pWindow)
 		{
 			SHOW_ERROR_MSG("Failed to open GLFW window\n");
 			glfwTerminate();
 			return ErrorCode::ERR_INVALID_OPERATION;
 		}
-		glfwMakeContextCurrent(m_pWindow);
+		glfwMakeContextCurrent(m_pWindow);		
+		glfwSetKeyCallback(m_pWindow, glfwKeyCallbackFunc);
 
 		/* Initialize GLEW */
 		if (glewInit() != GLEW_OK) {
@@ -68,8 +77,9 @@ namespace stdio_fw
 	void Application::Run()
 	{
 		DWORD lastTime = GetTickCount();
+		m_isRunning = true;
 
-		while (!glfwWindowShouldClose(m_pWindow))
+		while (!glfwWindowShouldClose(m_pWindow) && m_isRunning == true)
 		{
 			DWORD curTime = GetTickCount();
 			float deltaTime = static_cast<float>(curTime - lastTime);
@@ -89,6 +99,11 @@ namespace stdio_fw
 
 		Exit();
 		glfwTerminate();
+	}
+
+	void Application::glfwKeyCallbackFunc(GLFWwindow* pWindow, int key, int scancode, int action, int mods)
+	{
+		m_pApp->onKeyProc((KeyCode)key, (KeyState)action);
 	}
 }
 

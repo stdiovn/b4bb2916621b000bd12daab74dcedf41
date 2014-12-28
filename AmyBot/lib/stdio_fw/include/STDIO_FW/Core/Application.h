@@ -10,11 +10,13 @@ namespace stdio_fw
 {
 	class Application
 	{
-		GLFWwindow*			m_pWindow;
-		bool				m_isRunning;
-		Graphics*			m_pGraphics;
+		static Application*		m_pApp;
+		GLFWwindow*				m_pWindow;		
+		Graphics*				m_pGraphics;
+		char					m_sWindowTitle[64];
 
-		char				m_sWindowTitle[64];
+	protected:
+		bool					m_isRunning;
 
 	public:
 		Application();
@@ -29,7 +31,6 @@ namespace stdio_fw
 		// Update function, must be override
 		// [in] deltaTime: time between 2 frames
 		virtual void		Update(float deltaTime) = 0;
-
 		virtual void		Render(Graphics* g) = 0;
 		virtual void		Exit() = 0;
 
@@ -37,8 +38,12 @@ namespace stdio_fw
 		// [in] Key code
 		// [out] State of key
 		KeyState			getKeyState(KeyCode key);
+		virtual void		onKeyProc(KeyCode key, KeyState state) = 0;
 		Graphics*			getGraphics();
 
 		void				Run();
+
+	private:
+		static void glfwKeyCallbackFunc(GLFWwindow* pWindow, int key, int scancode, int action, int mods);	
 	};
 }

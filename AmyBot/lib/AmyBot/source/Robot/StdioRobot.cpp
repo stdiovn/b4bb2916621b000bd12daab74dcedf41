@@ -2,6 +2,7 @@
 
 #include "StdioRobot.h"
 #include "StdioWorld.h"
+#include "RobotException.h"
 
 void RunRobotThread(void* arg)
 {
@@ -218,6 +219,13 @@ void StdioRobot::runAction(int action)
 			_currentColumn--;
 			break;
 		}
+
+		// check if move is vallid
+		if (_world->isBlocked(_currentRow, _currentColumn))
+		{
+			throw MoveOnRockException();
+		}
+
 		break;
 	case ACTION_TURNLEFT:
 		_facingDirection = (_facingDirection + 1) % 4;
@@ -229,7 +237,7 @@ void StdioRobot::runAction(int action)
 		}
 		else
 		{
-			//TODO: throw exception
+			throw PickEmptyCellException();
 		}
 		break;
 	case ACTION_PUTGEM:

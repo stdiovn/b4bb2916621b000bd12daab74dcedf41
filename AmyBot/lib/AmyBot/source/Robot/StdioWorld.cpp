@@ -89,6 +89,7 @@ void StdioWorld::render(Graphics* g)
 				g->drawImage(_gemTexture, Rect(_mapX + c*_cellWidth, _mapY + r*_cellHeight, _cellWidth, _cellHeight));
 				char buf[4] = { 0 };
 				sprintf(buf, "%d", numGems);
+				g->setColor(0xffffffff);
 				g->drawText(buf, _mapX + c*_cellWidth, _mapY + r*_cellHeight);
 			}
 		}
@@ -97,7 +98,8 @@ void StdioWorld::render(Graphics* g)
 
 bool StdioWorld::isBlocked(unsigned int row, unsigned int col)
 {
-	return (_worldMatrix[row][col] != CELL_SPACE);
+	int cell = _worldMatrix[row][col];
+	return (cell == CELL_ROCK || isWall(row, col));
 }
 
 bool StdioWorld::isWall(unsigned int row, unsigned int col)
