@@ -26,6 +26,10 @@ ErrorCode Game::Init(int screenW, int screenH, const char* title)
 	_robot->setWorld(_world);
 	_robot->init();
 
+	Font::initFontLib();
+	_font = new Font("arial.ttf");
+	_font->loadFont();
+
 	return errCode;
 }
 
@@ -36,6 +40,8 @@ void Game::Update(float deltaTime)
 
 void Game::Render(Graphics* g)
 {
+	g->setFont(_font);
+
 	g->cleanScreen();	
 
 	_world->render(g);

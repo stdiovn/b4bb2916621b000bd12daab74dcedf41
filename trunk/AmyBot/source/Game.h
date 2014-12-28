@@ -19,4 +19,5 @@ public:
 private:
 	StdioWorld*			_world;
 	StdioRobot*			_robot;
+	Font*				_font;
 };
