@@ -126,24 +126,22 @@ void StdioRobot::reset()
 
 void StdioRobot::move()
 {
-	//_actions.push(ACTION_MOVE);
 	runAction(ACTION_MOVE);
 }
 
 void StdioRobot::turnLeft()
 {
-	//_actions.push(ACTION_TURNLEFT);
 	runAction(ACTION_TURNLEFT);
 }
 
 void StdioRobot::pickGem()
 {
-	_actions.push(ACTION_PICKGEM);
+	runAction(ACTION_PICKGEM);
 }
 
 void StdioRobot::putGem()
 {
-	_actions.push(ACTION_PUTGEM);
+	runAction(ACTION_PUTGEM);
 }
 
 bool StdioRobot::frontIsBlocked()
@@ -197,42 +195,47 @@ void StdioRobot::runAction(int action)
 	{
 		Sleep(300.0f - _timer);
 	}
-	//if (_timer >= 0.3f)
-	//{
-		_timer = 0.0f;
 
-		//int action = _actions.front();
+	_timer = 0.0f;
 
-		switch (action)
+	unsigned int numGems = _world->getNumGemsAt(_currentRow, _currentColumn);
+
+	switch (action)
+	{
+	case ACTION_MOVE:
+		switch (_facingDirection)
 		{
-		case ACTION_MOVE:
-			switch (_facingDirection)
-			{
-			case FACING_NORTH:
-				_currentRow--;
-				break;
-			case FACING_EAST:
-				_currentColumn++;
-				break;
-			case FACING_SOUTH:
-				_currentRow++;
-				break;
-			case FACING_WEST:
-				_currentColumn--;
-				break;
-			}
+		case FACING_NORTH:
+			_currentRow--;
 			break;
-		case ACTION_TURNLEFT:
-			_facingDirection = (_facingDirection + 1) % 4;
+		case FACING_EAST:
+			_currentColumn++;
 			break;
-		case ACTION_PICKGEM:
+		case FACING_SOUTH:
+			_currentRow++;
 			break;
-		case ACTION_PUTGEM:
+		case FACING_WEST:
+			_currentColumn--;
 			break;
-		default:
-			;
 		}
-
-		//_actions.pop();
-	//}
+		break;
+	case ACTION_TURNLEFT:
+		_facingDirection = (_facingDirection + 1) % 4;
+		break;
+	case ACTION_PICKGEM:
+		if (numGems > 0)
+		{
+			_world->setNumGemsAt(_currentRow, _currentColumn, numGems - 1);
+		}
+		else
+		{
+			//TODO: throw exception
+		}
+		break;
+	case ACTION_PUTGEM:
+		_world->setNumGemsAt(_currentRow, _currentColumn, numGems + 1);
+		break;
+	default:
+		;
+	}
 }

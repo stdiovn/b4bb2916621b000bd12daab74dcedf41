@@ -227,7 +227,7 @@ namespace stdio_fw
 		// Draw individual character
 		for (const char* p = text; *p; p++)
 		{
-			if (FT_Load_Char(m_curFont->m_face, *p, FT_LOAD_RENDER))
+			if (FT_Load_Char(m_curFont->m_face, *p, FT_LOAD_RENDER) != 0)
 				continue;
 
 			FT_GlyphSlot gs = m_curFont->m_face->glyph;

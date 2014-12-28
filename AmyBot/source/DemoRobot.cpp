@@ -7,12 +7,28 @@ void DemoRobot::run()
 	turnLeft();
 	turnLeft();
 
+	move();
+
+	turnLeft();
+	for (int i = 0; i < 4; i++)
+	{
+		move();
+	}
+
+	pickGem();
+	move();
+	move();
+	putGem();
+	putGem();
+
 	while (true)
 	{
-		while (!frontIsBlocked())
-		{
-			move();
-		}
+		move();
+		move();
+		move();
+		turnLeft();
+		move();
+		move();
 		turnLeft();
 	}
 }

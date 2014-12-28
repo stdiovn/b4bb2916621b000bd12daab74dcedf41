@@ -11,12 +11,15 @@ public:
 
 	bool					isBlocked(unsigned int row, unsigned int col);
 	bool					isBlockedInDirection(unsigned int row, unsigned int col, int direction);
+	bool					isWall(unsigned int row, unsigned int col);
 
 	inline unsigned int		getMapX() { return _mapX; }
 	inline unsigned int		getMapY() { return _mapY; }
 	inline int				getCell(unsigned int row, unsigned int column) { return _worldMatrix[row][column]; }
 	inline unsigned int		getCellWidth() { return _cellWidth; }
 	inline unsigned int		getCellHeight() { return _cellHeight; }
+	int						getNumGemsAt(unsigned int row, unsigned int column);
+	void					setNumGemsAt(unsigned int row, unsigned int column, int numGems);
 private:
 	unsigned int	_mapX;
 	unsigned int	_mapY;
@@ -31,4 +34,5 @@ private:
 	unsigned int	_numCols;
 
 	Image*			_cellTexture;
+	Image*			_gemTexture;
 };

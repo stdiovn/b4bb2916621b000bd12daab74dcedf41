@@ -12,6 +12,9 @@ void StdioWorld::init()
 
 	_cellTexture = new Image("block.png");
 	_cellTexture->loadImage();
+
+	_gemTexture = new Image("gem.png");
+	_gemTexture->loadImage();
 }
 
 void StdioWorld::load(const char* filepath)
@@ -47,6 +50,11 @@ void StdioWorld::load(const char* filepath)
 			fscanf(f, "%d", &cell);
 
 			_worldMatrix[r][c] = cell;
+
+			if (cell == CELL_GEM)
+			{
+				setNumGemsAt(r, c, 1);
+			}
 		}
 	}
 
@@ -70,9 +78,18 @@ void StdioWorld::render(Graphics* g)
 	{
 		for (unsigned int c = 0; c < _numCols+2; c++)
 		{
-			if (_worldMatrix[r][c] != CELL_SPACE)
+			if (_worldMatrix[r][c] == CELL_ROCK || isWall(r, c))
 			{
 				g->drawImage(_cellTexture, Rect(_mapX + c*_cellWidth, _mapY + r*_cellHeight, _cellWidth, _cellHeight));
+			}
+			
+			int numGems = getNumGemsAt(r, c);
+			if (numGems > 0)
+			{
+				g->drawImage(_gemTexture, Rect(_mapX + c*_cellWidth, _mapY + r*_cellHeight, _cellWidth, _cellHeight));
+				char buf[4] = { 0 };
+				sprintf(buf, "%d", numGems);
+				g->drawText(buf, _mapX + c*_cellWidth, _mapY + r*_cellHeight);
 			}
 		}
 	}
@@ -81,6 +98,13 @@ void StdioWorld::render(Graphics* g)
 bool StdioWorld::isBlocked(unsigned int row, unsigned int col)
 {
 	return (_worldMatrix[row][col] != CELL_SPACE);
+}
+
+bool StdioWorld::isWall(unsigned int row, unsigned int col)
+{
+	int cell = _worldMatrix[row][col];
+
+	return (cell == CELL_WALL_EAST || cell == CELL_WALL_NORTH || cell == CELL_WALL_SOUTH || cell == CELL_WALL_WEST);
 }
 
 bool StdioWorld::isBlockedInDirection(unsigned int row, unsigned int col, int direction)
@@ -102,4 +126,20 @@ bool StdioWorld::isBlockedInDirection(unsigned int row, unsigned int col, int di
 	default:
 		return true;
 	}
+}
+
+int StdioWorld::getNumGemsAt(unsigned int row, unsigned int col)
+{
+	if (row == 0 || row == _numRows + 1 || col == 0 || col == _numCols + 1)
+	{
+		return 0;
+	}
+
+	return (_worldMatrix[row][col] & 0xffff0000) >> 16;
+}
+
+void StdioWorld::setNumGemsAt(unsigned int row, unsigned int col, int numGems)
+{
+	_worldMatrix[row][col] &= 0xffff;
+	_worldMatrix[row][col] |= (numGems << 16);
 }
